@@ -76,7 +76,7 @@
 
 ### Some Screens
 
-| <img src="https://github.com/user-attachments/assets/8ed7c1dc-2d02-4fd6-bb35-a56f12506a37" width="250"/>| <img src="https://github.com/user-attachments/assets/d8e56953-0483-4d6e-992d-2d95578b8dd0" width="250"/> | <img src="https://github.com/user-attachments/assets/e46b235c-40d8-45ec-93f9-0ffa58bdbd7c" width="250"/> | <img src="https://github.com/user-attachments/assets/27e0959f-49a1-47e2-8fd7-a2c132cc4fde" width="250"/> |
+| <img src="https://github.com/user-attachments/assets/95fd0e8f-e3e4-4081-8160-5031d0fd3ea0" width="250"/>| <img src="https://github.com/user-attachments/assets/d8e56953-0483-4d6e-992d-2d95578b8dd0" width="250"/> | <img src="https://github.com/user-attachments/assets/e46b235c-40d8-45ec-93f9-0ffa58bdbd7c" width="250"/> | <img src="https://github.com/user-attachments/assets/27e0959f-49a1-47e2-8fd7-a2c132cc4fde" width="250"/> |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  |
 |     Splash Screen     |     Log in     |     Sign up      |     Forgot Password     |
 
