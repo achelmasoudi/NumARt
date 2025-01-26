@@ -72,6 +72,23 @@
 - ✅ **Web Sayfası ve APK Hazırlığı.**
 - ✅ **Son düzenlemeler, optimizasyonlar.**
 
+### 8. **Hafta**  
+- ✅ **Premium Özellikler Eklendi (SaaS Modeli) :**
+  - Uygulamaya premium üyelik seçeneği eklendi.
+  - Premium kullanıcılar için özel profil sayfası oluşturuldu.
+  - Premium kullanıcıların sahip olduğu özellikler veritabanında kaydedildi ve yönetilmeye başlandı.
+- ✅ **Tasarım İyileştirmeleri :**
+  - Kullanıcı arayüzü (UI) ve kullanıcı deneyimi (UX) daha da geliştirildi.
+  - Renk paleti, fontlar ve genel tasarım öğeleri optimize edildi.
+
+### 9. **Hafta**  
+- ✅ **Web Sayfası Güncellemeleri :**
+  - Web sitesi tasarımı yenilendi ve daha kullanıcı dostu hale getirildi.
+  - APK indirme bağlantısı eklendi.
+  - Uygulama önizleme videosu (Demo) eklendi.
+  - Premium özelliklerin tanıtıldığı bir bölüm eklendi.
+- ✅ **Son düzenlemeler, optimizasyonlar.**
+  
 <br/> 
 
 ### Mobil Uygulama Önizleme 📱
