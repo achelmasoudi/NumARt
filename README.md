@@ -18,7 +18,7 @@
 
    <br/> 
 
-![Feature graphic](https://github.com/user-attachments/assets/49d448bd-b97a-40f0-8f92-23177ca970d2)
+![Feature graphic](https://github.com/user-attachments/assets/d14fc77d-0c81-46fe-a8d8-82269f4801ea)
    <br/> 
 
 
@@ -45,8 +45,11 @@
 - ✅ **SWOT Analizi :** [Canva Linki](https://www.canva.com/design/DAGYC6DlrKk/2jDLi3K1YkIMi8Gjh6Ngwg/edit?utm_content=DAGYC6DlrKk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)  
 
 ### 4. **Hafta**
-- ✅ **Web Sayfası Oluşturuldu :** [NumARt Web Sitesi]()
-- ✅ **Kullanıcı arayüzleri (frontend) :** [Pdf Linki]()
+- ✅ **Web Sayfası Oluşturuldu :** [NumARt Web Sitesi](https://achelmasoudi.github.io/NumArt_WebSite/)
+- ✅ **Kullanıcı arayüzleri (frontend) :**
+  - Mobil için : [Pdf Linki](https://github.com/user-attachments/files/18053910/Mobil.pdf)
+  - Tablet için : [Pdf Linki](https://github.com/user-attachments/files/18053912/Tablet.pdf)
+- ✅ **THS Formu Dolduruldu.**
      
 ### 5. **Hafta**  
 - ✅ **Firebase Bağlantısı :**  
@@ -69,21 +72,43 @@
 - ✅ **Web Sayfası ve APK Hazırlığı.**
 - ✅ **Son düzenlemeler, optimizasyonlar.**
 
+### 8. **Hafta**  
+- ✅ **Premium Özellikler Eklendi (SaaS Modeli) :**
+  - Uygulamaya premium üyelik seçeneği eklendi.
+  - Premium kullanıcılar için özel profil sayfası oluşturuldu.
+  - Premium kullanıcıların sahip olduğu özellikler veritabanında kaydedildi ve yönetilmeye başlandı.
+- ✅ **Tasarım İyileştirmeleri :**
+  - Kullanıcı arayüzü (UI) ve kullanıcı deneyimi (UX) daha da geliştirildi.
+  - Renk paleti, fontlar ve genel tasarım öğeleri optimize edildi.
+
+### 9. **Hafta**  
+- ✅ **Web Sayfası Güncellemeleri :**
+  - Web sitesi tasarımı yenilendi ve daha kullanıcı dostu hale getirildi.
+  - APK indirme bağlantısı eklendi.
+  - Uygulama önizleme videosu (Demo) eklendi.
+  - Premium özelliklerin tanıtıldığı bir bölüm eklendi.
+- ✅ **Son düzenlemeler, optimizasyonlar.**
+  
 <br/> 
 
-### Some Screens
+### Mobil Uygulama Önizleme 📱
 
-| <img src="https://github.com/user-attachments/assets/8ed7c1dc-2d02-4fd6-bb35-a56f12506a37" width="250"/>| <img src="https://github.com/user-attachments/assets/d8e56953-0483-4d6e-992d-2d95578b8dd0" width="250"/> | <img src="https://github.com/user-attachments/assets/e46b235c-40d8-45ec-93f9-0ffa58bdbd7c" width="250"/> | <img src="https://github.com/user-attachments/assets/27e0959f-49a1-47e2-8fd7-a2c132cc4fde" width="250"/> |
+| <img src="https://github.com/user-attachments/assets/95fd0e8f-e3e4-4081-8160-5031d0fd3ea0" width="250"/>| <img src="https://github.com/user-attachments/assets/6495ac6a-0750-499d-9514-dd940d4a0f8d" width="250"/> | <img src="https://github.com/user-attachments/assets/c4a63ed8-2601-4df3-b353-5d33c22fc95f" width="250"/> | <img src="https://github.com/user-attachments/assets/fb2f678e-0b65-4b82-8133-caeaeb8bb836" width="250"/> |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  |
-|     Splash Screen     |     Log in     |     Sign up      |     Forgot Password     |
+|     Launch Screen     |     Sign-In Interface     |     Registration Portal      |     Password Recovery Module     |
 
-| <img src="https://github.com/user-attachments/assets/671e4d8b-f652-4cd0-ae45-7d9a7cf170f0" width="250"/>| <img src="https://github.com/user-attachments/assets/b585af7b-8354-4a2e-8a03-dffa8d37531c" width="250"/> | <img src="https://github.com/user-attachments/assets/f6fded46-949e-4df5-8160-f633f4218ebf" width="250"/> | <img src="https://github.com/user-attachments/assets/cfac257d-ea00-4c60-8c5b-8a8601e0a060" width="250"/> |
+| <img src="https://github.com/user-attachments/assets/6f39f5bd-3887-4ad6-9c0e-84eb0937e098" width="250"/>| <img src="https://github.com/user-attachments/assets/4e8b3a37-f8f6-4735-8bbc-d5d9e9fb9323" width="250"/> | <img src="https://github.com/user-attachments/assets/b26dd8b5-1589-4b2a-ae9e-1006119aeed6" width="250"/> | <img src="https://github.com/user-attachments/assets/06483eb9-ed7f-4a65-857d-8eb2970cd8d4" width="250"/> |
 | :-------------: | :-------------:  | :-------------:  | :-------------:  |
-|     Main     |     Your Targets     |     Profile     |     App Language     |
+|     Primary Dashboard     |     Premium Access Modal     |     Easy Level Interface     |     Pre-Game Configuration     |
 
-| <img src="https://github.com/user-attachments/assets/96db4210-e0aa-4791-8f96-dfb1f7619782" width="250"/>| <img src="https://github.com/user-attachments/assets/a977d3d8-3431-49ec-9797-96ebaee998e7" width="250"/> | <img src="https://github.com/user-attachments/assets/29c016e2-ba9b-4e7f-8408-9bc4063607ad" width="250"/> |
-| :-------------: | :-------------:  | :-------------:  |
-|     Game Activity     |     Game Activity ( Win )     |     Game Activity ( Lose )     |
+| <img src="https://github.com/user-attachments/assets/c0a4275d-8ead-4686-b2ac-88f9d9b8e536" width="250"/>| <img src="https://github.com/user-attachments/assets/2d4b9b00-db11-4bc1-850f-f960913b500d" width="250"/> | <img src="https://github.com/user-attachments/assets/ace05e7c-bc5c-456f-a923-75e32d94ac36" width="250"/> | <img src="https://github.com/user-attachments/assets/1604c93e-7a97-4a84-9322-82376e3f7165" width="250"/> |
+| :-------------: | :-------------:  | :-------------:  | :-------------:  |
+|     Victory Summary Screen     |     Retry Challenge Interface     |     User Profile Dashboard     |     Language Preferences Modal     |
+
+<br/> 
+
+### Demo Önizleme 🎬
+https://github.com/user-attachments/assets/206bf37b-f2dc-4eb2-afff-189db060cb4c
 
 <br/> 
 
