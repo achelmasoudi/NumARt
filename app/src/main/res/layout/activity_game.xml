@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <io.github.sceneview.ar.ArSceneView
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/arSceneViewId"
         android:layout_width="match_parent"
+        android:name="com.google.ar.sceneform.ux.ArFragment"
         android:layout_height="match_parent"/>
 
         <RelativeLayout

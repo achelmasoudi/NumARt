@@ -5,4 +5,5 @@
     <color name="gray">#808080</color>
     <color name="primaryColor">#37A000</color>
     <color name="backgroundColor">#F0F3F8</color>
+    <color name="gold">#FFD700</color>
 </resources>

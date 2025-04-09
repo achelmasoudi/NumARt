@@ -31,6 +31,7 @@
     <string name="failed_to_send_reset_email">Şifre sıfırlama e-postası gönderilemedi. Lütfen e-posta adresinizi kontrol edip tekrar deneyin.</string>
     <string name="forgot_password_title">Oops! Bir şeyi mi unuttunuz?</string>
     <string name="settings">Ayarlar</string>
+    <string name="premium">Premium</string>
     <string name="easy_level">Kolay Seviye</string>
     <string name="medium_level">Orta Seviye</string>
     <string name="hard_level">Zor Seviye</string>
@@ -68,4 +69,15 @@
     <string name="bottomSheetLayoutOfLanguages_Application_language">Uygulama dili</string>
     <string name="bottomSheetLayoutOfLanguages_English">İngilizce</string>
     <string name="bottomSheetLayoutOfLanguages_Turkish">Türkçe</string>
+    <string name="coming_soon">Bu özellik yakında geliyor!</string>
+    <string name="premium_title">PREMIUM\'A GEÇ</string>
+    <string name="premium_description">Tüm hedeflerin kilidini aç, özel AR içeriklerine eriş ve reklamsız deneyimin tadını çıkar!</string>
+    <string name="targetsUnlocked">Tüm kilitli hedefler açık</string>
+    <string name="trackingSystem">İlerleme takip sistemi</string>
+    <string name="uninterruptedExperience">Kesintisiz deneyim</string>
+    <string name="start_premium_btnTitle">Premium Paket: Yıllık ₺250</string>
+    <string name="complete_previous_target">Devam etmek için önce %d. hedefi tamamlamanız gerekiyor!</string>
+    <string name="premium_activated">Premium etkinleştirildi! Tüm özelliklerin kilidi açıldı!</string>
+    <string name="premium_activation_failed">Premium etkinleştirme başarısız. Tekrar deneyin</string>
+    <string name="premium_status_message">Zaten bir premium üyesiniz!</string>
 </resources>

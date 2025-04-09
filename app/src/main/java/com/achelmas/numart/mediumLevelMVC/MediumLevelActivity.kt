@@ -57,7 +57,7 @@ class MediumLevelActivity : AppCompatActivity() {
         myReference = FirebaseDatabase.getInstance().reference
 
         val userId = mAuth!!.currentUser!!.uid
-        val userProgressRef = myReference.child("UserProgress").child(userId).child("A2MediumLevel")
+        val userProgressRef = myReference.child("Users").child(userId).child("UserProgress")
         val targetsRef = myReference.child("Medium Level")
 
         // Kullanıcı ilerlemesini ve hedefleri paralel olarak çek
@@ -74,8 +74,13 @@ class MediumLevelActivity : AppCompatActivity() {
                             model.number3 = snapshot.child("Number3").value.toString()
                             model.number4 = snapshot.child("Number4").value.toString()
 
-                            // İlk hedef her zaman açık olacak
-                            model.isUnlocked = userProgressSnapshot.child(model.targetNumber).value == true || model.targetNumber == "1"
+                            model.isUnlocked = when {
+                                model.targetNumber.toInt() in 11..20 ->
+                                    userProgressSnapshot.child((model.targetNumber.toInt()).toString()).value == true
+                                // Other cases
+                                else -> false
+                            }
+
                             mediumLvlList.add(model)
                         }
 

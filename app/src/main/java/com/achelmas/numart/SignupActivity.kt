@@ -168,14 +168,50 @@ class SignupActivity : AppCompatActivity() {
     private fun uploadUserDetails(userId: String, fullname: String, email: String , age: String) {
         reference = FirebaseDatabase.getInstance().reference.child("Users").child(userId)
 
-        var data:HashMap<String , Any> = HashMap()
-        data.put("id", userId)
-        data.put("fullname", fullname.trim())
-        data.put("email", email)
-        data.put("age" , age)
+        var data:HashMap<String , Any> = HashMap<String, Any>().apply {
+            put("id", userId)
+            put("fullname", fullname.trim())
+            put("email", email)
+            put("age" , age)
+
+            // Add nested progress data
+            put("UserProgress", hashMapOf(
+                "1" to true,
+                "2" to false,
+                "3" to false,
+                "4" to false,
+                "5" to false,
+                "6" to false,
+                "7" to false,
+                "8" to false,
+                "9" to false,
+                "10" to false,
+                "11" to false,
+                "12" to false,
+                "13" to false,
+                "14" to false,
+                "15" to false,
+                "16" to false,
+                "17" to false,
+                "18" to false,
+                "19" to false,
+                "20" to false,
+                "21" to false,
+                "22" to false,
+                "23" to false,
+                "24" to false,
+                "25" to false,
+                "26" to false,
+                "27" to false,
+                "28" to false,
+                "29" to false,
+                "30" to false
+            ))
+        }
 
         reference!!.setValue(data).addOnCompleteListener {task ->
             if (task.isSuccessful) {
+
                 Toast.makeText(this, resources.getString(R.string.signup_successful), Toast.LENGTH_SHORT).show()
                 loadingAnimation!!.visibility = View.GONE
                 signupTextFromSignupBtn!!.visibility = View.VISIBLE

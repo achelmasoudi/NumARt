@@ -54,7 +54,7 @@ class EasyLevelActivity : AppCompatActivity() {
         myReference = FirebaseDatabase.getInstance().reference
 
         val userId = mAuth!!.currentUser!!.uid
-        val userProgressRef = myReference.child("UserProgress").child(userId).child("A1EasyLevel")
+        val userProgressRef = myReference.child("Users").child(userId).child("UserProgress")
         val targetsRef = myReference.child("Easy Level")
 
         // Kullanıcı ilerlemesini ve hedefleri paralel olarak çek
@@ -71,8 +71,14 @@ class EasyLevelActivity : AppCompatActivity() {
                             model.number3 = snapshot.child("Number3").value.toString()
                             model.number4 = snapshot.child("Number4").value.toString()
 
-                            // İlk hedef her zaman açık olacak
-                            model.isUnlocked = userProgressSnapshot.child(model.targetNumber).value == true || model.targetNumber == "1"
+                            model.isUnlocked = when {
+                                model.targetNumber == "1" -> true // Always unlock first level
+                                // Levels 2-10: Unlock if previous level is completed
+                                model.targetNumber.toInt() in 2..10 ->
+                                    userProgressSnapshot.child((model.targetNumber.toInt()).toString()).value == true
+                                else -> false
+                            }
+
                             easyLvlList.add(model)
                         }
 

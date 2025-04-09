@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.animation.AnimatorSet
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -14,13 +15,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import com.achelmas.numart.easyLevelMVC.EasyLevelActivity
-import com.google.ar.core.TrackingState
+import com.google.ar.sceneform.Node
+import com.google.ar.sceneform.math.Vector3
+import com.google.ar.sceneform.rendering.ModelRenderable
+import com.google.ar.sceneform.ux.ArFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import io.github.sceneview.ar.ArSceneView
-import io.github.sceneview.ar.node.ArModelNode
-import io.github.sceneview.math.Position
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import nl.dionsegijn.konfetti.xml.KonfettiView
@@ -48,7 +48,7 @@ class GameActivity : AppCompatActivity() {
     private var usedNumbers = mutableSetOf<Int>()
     private val history = StringBuilder()
 
-    private lateinit var sceneView: ArSceneView
+    private lateinit var arFragment: ArFragment
     private lateinit var konfettiView: KonfettiView
 
     // Numbers
@@ -90,7 +90,10 @@ class GameActivity : AppCompatActivity() {
             number4 = bundle.getString("Number4")!!.toInt()
         }
 
-        sceneView = findViewById(R.id.arSceneViewId)
+
+        // about AR
+        arFragment = supportFragmentManager.findFragmentById(R.id.arSceneViewId) as ArFragment
+
 
         initializeGame()
 
@@ -103,48 +106,60 @@ class GameActivity : AppCompatActivity() {
             finish()
             startActivity(intent)
         }
-
     }
 
     // ----------------------------------------------------------------------------------------------
     private fun add3DNumberButton(
-        glbFileLocation: String, // 3D model dosyası (örnek: "models/number24.glb")
-        position: Position, // Modelin AR sahnesindeki pozisyonu
-        number: Int, // Sayıyı temsil eder
-        onClick: (Int) -> Unit // Tıklanınca yapılacak işlem
+        modelUri: String, // 3D model URI (e.g., "models/number24.sfb")
+        position: Vector3, // // Model's position
+        number: Int, // Number it represents
+        onClick: (Int) -> Unit // // Action on click
     ) {
-        val numberNode = ArModelNode().apply {
-            loadModelGlbAsync(glbFileLocation) {
-                scale = Position(0.005f, 0.005f, 0.005f) // Modelin boyutunu ayarla
-                this.position = position // Modelin sahnedeki pozisyonunu ayarla
+        ModelRenderable.builder()
+            .setSource(this, Uri.parse(modelUri)) // GLB file in assets
+            .setIsFilamentGltf(true)
+            .build()
+            .thenAccept { renderable ->
+                val node = Node().apply {
+                    this.renderable = renderable
+                    this.worldPosition = position // Position of the model in AR space
+                    // Adjust the scale of the 3D model
+                    this.worldScale = Vector3(0.0025f, 0.0025f, 0.0025f)
+                }
+
+                arFragment.arSceneView.scene.addChild(node)
+
+                // Set a tap listener to handle user interaction with the 3D model
+                node.setOnTapListener { _, _ -> onClick(number) }
+                
             }
-
-            onTap = { _, _ -> onClick(number) } // Tıklanınca sayıyı geri döner
-        }
-
-        sceneView.addChild(numberNode)
+            .exceptionally { throwable ->
+                // Handle any errors that occur when loading the model
+                throwable.printStackTrace()
+                null
+            }
     }
 
     private fun addNumberButtons() {
-        // Modellerin farklı pozisyonlara yerleştirilmesi (x, y, z ekseninde farklılık)
+        // Positions for the number models
         val positions = listOf(
-            Position(-1.0f, 0.5f, -1.5f), // Sol üst
-            Position(1.0f, 0.5f, -1.5f),  // Sağ üst
-            Position(-1.0f, -0.5f, -2.0f), // Sol alt
-            Position(1.0f, -0.5f, -2.0f)   // Sağ alt
+            Vector3(-0.2f, 0.3f, -0.4f),  // Top left (closer to the center and the camera)
+            Vector3(0.2f, 0.3f, -0.4f),   // Top right
+            Vector3(-0.2f, -0.3f, -0.4f), // Bottom left
+            Vector3(0.2f, -0.3f, -0.4f)   // Bottom right
         )
 
         // Her bir sayıyı ve pozisyonunu ekleyelim
         val numbersAndModels = listOf(
-            Triple("models/number1.glb", positions[0], 1),   // Üstte
-            Triple("models/number2.glb", positions[1], 2),   // Altta
-            Triple("models/number5.glb", positions[2], 5), // Solda
-            Triple("models/number45.glb", positions[3], 45)  // Sağda
+            Triple("models/number1.glb", positions[0], 1),  // Top left
+            Triple("models/number2.glb", positions[1], 2),  // Top right
+            Triple("models/number5.glb", positions[2], 5),  // Bottom left
+            Triple("models/number45.glb", positions[3], 45) // Bottom right
         )
 
         for ((model, position, number) in numbersAndModels) {
             add3DNumberButton(
-                glbFileLocation = model,
+                modelUri  = model,
                 position = position,
                 number = number
             ) { selectedNumber ->
@@ -342,9 +357,9 @@ class GameActivity : AppCompatActivity() {
     private fun unlockNextTarget(userId: String, completedTarget: Int) {
         val nextTarget = completedTarget + 1
         val userProgressRef = FirebaseDatabase.getInstance().reference
-            .child("UserProgress")
+            .child("Users")
             .child(userId)
-            .child("A1EasyLevel")
+            .child("UserProgress")
 
         // Check if the next target is already unlocked
         userProgressRef.child(nextTarget.toString()).get().addOnSuccessListener { snapshot ->

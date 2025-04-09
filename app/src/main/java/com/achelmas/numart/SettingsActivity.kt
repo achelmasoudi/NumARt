@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
@@ -17,8 +19,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -26,6 +33,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var alertDialogBuilder : AlertDialog.Builder
     private lateinit var logOutBtn: CardView
     private lateinit var appLanguageBtn: CardView
+    private lateinit var premiumBtn: CardView
 
     private var fullnameTextView: TextView? = null
     private lateinit var fullname: String
@@ -35,11 +43,25 @@ class SettingsActivity : AppCompatActivity() {
 
     private var targetsUnlockedTextView: TextView? = null
 
+    private lateinit var isPremiumTxtView: TextView
+    private lateinit var userRef: DatabaseReference
+    private var isPremiumUser = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
         mAuth = FirebaseAuth.getInstance()
+        // Initialize user reference
+        userRef = FirebaseDatabase.getInstance().reference
+            .child("Users")
+            .child(mAuth!!.currentUser!!.uid)
+
+        // Initialize premium TextView
+        isPremiumTxtView = findViewById(R.id.settingsActivity_isPremiumId)
+
+        // Add premium status check
+        checkPremiumStatus()
 
         toolbar = findViewById(R.id.settingsActivity_toolBarId)
         // Set arrow back button to Toolbar
@@ -65,8 +87,94 @@ class SettingsActivity : AppCompatActivity() {
 
         appLanguageProcess()
         logOutProcess()
+        premiumProcess()
     }
 
+    private fun checkPremiumStatus() {
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                isPremiumUser = snapshot.child("premium").getValue(Boolean::class.java) ?: false
+                updatePremiumUI()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun updatePremiumUI() {
+        if (isPremiumUser) {
+            isPremiumTxtView.text = "NumARt Premium"
+        } else {
+            isPremiumTxtView.text = resources.getString(R.string.premium_title)
+        }
+    }
+    private fun premiumProcess() {
+        premiumBtn = findViewById(R.id.settingsActivity_premiumBtnId)
+        premiumBtn.setOnClickListener {
+            if (isPremiumUser) {
+                showPremiumStatusMessage()
+            } else {
+                showPremiumDialog()
+            }
+        }
+    }
+    private fun showPremiumStatusMessage() {
+        Snackbar.make(
+            findViewById(android.R.id.content),
+            resources.getString(R.string.premium_status_message),
+            Snackbar.LENGTH_SHORT
+        ).setBackgroundTint(ContextCompat.getColor(this, R.color.gold))
+            .setTextColor(Color.BLACK)
+            .show()
+    }
+    private fun showPremiumDialog() {
+        val builder = AlertDialog.Builder(this)
+        val view = layoutInflater.inflate(R.layout.premium_alert_dialog, null)
+        view.background = ContextCompat.getDrawable(this, R.drawable.background_of_alert_dialog)
+
+        val startBtn: CardView = view.findViewById(R.id.premiumPage_startBtn)
+        val closeBtn: ImageView = view.findViewById(R.id.premiumPage_closeBtn)
+
+        builder.setView(view)
+        val dialog = builder.create().apply {
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window?.setDimAmount(0.7f)
+            setCancelable(false)
+        }
+        dialog.show()
+
+        startBtn.setOnClickListener {
+            unlockAllTargets()
+            dialog.dismiss()
+        }
+        closeBtn.setOnClickListener { dialog.dismiss() }
+    }
+    private fun unlockAllTargets() {
+        val updates = HashMap<String, Any>().apply {
+            put("premium", true)
+            val targets = HashMap<String, Boolean>().apply {
+                for (i in 1..30) put(i.toString(), true)
+            }
+            put("UserProgress", targets)
+        }
+
+        userRef.updateChildren(updates)
+            .addOnSuccessListener {
+                setResult(RESULT_OK)
+                isPremiumUser = true
+                updatePremiumUI()
+                getTargetsUnlocked() // Refresh unlocked targets count
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    resources.getString(R.string.premium_activated),
+                    Snackbar.LENGTH_SHORT
+                ).setBackgroundTint(ContextCompat.getColor(this, R.color.gold))
+                    .setTextColor(Color.BLACK)
+                    .show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, resources.getString(R.string.premium_activation_failed), Toast.LENGTH_SHORT).show()
+            }
+    }
     private fun appLanguageProcess() {
         appLanguageBtn = findViewById(R.id.settingsActivity_appLanguageBtnId)
         appLanguageBtn.setOnClickListener {
@@ -101,16 +209,16 @@ class SettingsActivity : AppCompatActivity() {
         LanguageManager.setLocaleLanguage(this, language)
 
         // Restart the app to apply the new language
-        val intent = Intent(this, SplashScreenActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
     private fun getTargetsUnlocked() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val userProgressRef = FirebaseDatabase.getInstance().reference
-            .child("UserProgress")
+            .child("Users")
             .child(userId!!)
-            .child("A1EasyLevel")
+            .child("UserProgress")
 
         userProgressRef.get().addOnSuccessListener { snapshot ->
             var unlockedTargets = 0

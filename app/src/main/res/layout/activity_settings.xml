@@ -118,6 +118,54 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/settingsActivity_premiumBtnId"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    style="@style/SelectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="#00000000"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/premium_icon_for_settings" />
+
+                        <TextView
+                            android:id="@+id/settingsActivity_isPremiumId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:textStyle="bold"
+                            android:text="@string/premium_title"
+                            android:textColor="#FF9800"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.05dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@color/gray" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/settingsActivity_appLanguageBtnId"
                     android:layout_width="match_parent"
